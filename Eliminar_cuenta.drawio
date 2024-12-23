@@ -1,0 +1,125 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 OPR/115.0.0.0" version="25.0.3">
+  <diagram name="Page-1" id="2YBvvXClWsGukQMizWep">
+    <mxGraphModel dx="1380" dy="739" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-24" value="&lt;b&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;Eliminar una cuenta&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="355" y="10" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-53" value="ms-cuentas-bancarias" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="525" y="60" width="140" height="630" as="geometry" />
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-54" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};labelBackgroundColor=none;" parent="FPl_LzPnAsr6WE_-1Flb-53" vertex="1">
+          <mxGeometry x="65" y="90" width="10" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-55" value="DELETE: /cuentas/&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: wrap;&quot;&gt;{id&lt;/span&gt;&lt;span style=&quot;font-size: 10px; text-align: left; text-wrap-mode: wrap;&quot;&gt;}&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;labelBackgroundColor=none;fontColor=default;" parent="1" source="FPl_LzPnAsr6WE_-1Flb-57" target="FPl_LzPnAsr6WE_-1Flb-54" edge="1">
+          <mxGeometry x="0.0013" relative="1" as="geometry">
+            <mxPoint x="320" y="150" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="405" y="150" />
+            </Array>
+            <mxPoint x="590" y="150" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-56" value="Cliente" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="290" y="30" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-57" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="300" y="150" width="10" height="540" as="geometry" />
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-58" value="" style="endArrow=none;dashed=1;html=1;rounded=0;labelBackgroundColor=none;fontColor=default;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="304.55" y="150" as="sourcePoint" />
+            <mxPoint x="305" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-59" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="FPl_LzPnAsr6WE_-1Flb-74" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="805.0000000000002" y="770" as="sourcePoint" />
+            <mxPoint x="805" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-60" value="deleteById in bd" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="610" y="490" as="sourcePoint" />
+            <mxPoint x="800" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-61" value="response" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="560" as="sourcePoint" />
+            <mxPoint x="609.590909090909" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-62" value="response" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="595" y="590" as="sourcePoint" />
+            <mxPoint x="310" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-63" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;HTTP 204 No content&lt;/font&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;align=center;" parent="1" vertex="1">
+          <mxGeometry x="140" y="540" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-65" value="Cuenta no existe" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;labelBackgroundColor=none;fontColor=default;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="340" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="415" y="340" />
+            </Array>
+            <mxPoint x="590" y="340" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-66" value="alt" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" parent="1" vertex="1">
+          <mxGeometry x="30" y="270" width="620" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-67" value="[Caso inválido: Cuenta no existe]" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="120" y="270" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-68" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;HTTP 404 Not found&lt;/font&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px; background-color: initial;&quot;&gt;{&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&quot;statusCode&quot;: 404,&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&quot;error&quot;: &quot;Cliente no encontrado&quot;,&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&quot;message&quot;: &quot;Cuenta con id: 2342-2341 no existe&quot;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;}&lt;/font&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;align=left;" parent="1" vertex="1">
+          <mxGeometry x="40" y="315" width="250" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-69" value="findById in bd" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="610" y="200" as="sourcePoint" />
+            <mxPoint x="800" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-70" value="return false" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="260" as="sourcePoint" />
+            <mxPoint x="610" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-71" value="return true" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="450" as="sourcePoint" />
+            <mxPoint x="610" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-72" value="MongoDb" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
+          <mxGeometry x="770" y="30" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-73" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="FPl_LzPnAsr6WE_-1Flb-76" target="FPl_LzPnAsr6WE_-1Flb-74" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="805.0000000000002" y="770" as="sourcePoint" />
+            <mxPoint x="805" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-74" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="800" y="200" width="10" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-75" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="FPl_LzPnAsr6WE_-1Flb-76" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="805" y="690" as="sourcePoint" />
+            <mxPoint x="805" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FPl_LzPnAsr6WE_-1Flb-76" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="800" y="490" width="10" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

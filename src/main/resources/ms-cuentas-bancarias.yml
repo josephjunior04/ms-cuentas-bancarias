@@ -1,0 +1,435 @@
+openapi: 3.0.3
+info:
+  title: Bank accounts service
+  description: API for management bank accounts.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8081
+    description: Local server
+
+paths:
+  /v1/accounts:
+    get:
+      summary: Get all bank accounts
+      operationId: findAllAccounts
+      responses:
+        '200':
+          description: Get all bank accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountResponse'
+    post:
+      summary: Insert new back account
+      operationId: insert
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+      responses:
+        '201':
+          description: Bank account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/accounts/{id_account}:
+    get:
+      summary: Get bank account by ID
+      operationId: findById
+      parameters:
+        - name: id_account
+          in: path
+          required: true
+          description: Bank account ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns the found bank account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '404':
+          description: Not found bank account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Update bank account by ID
+      operationId: update
+      parameters:
+        - name: id_account
+          in: path
+          required: true
+          description: Bank account Id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+      responses:
+        '200':
+          description: Bank account updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '400':
+          description: InvalidRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found bank account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete bank account by Id
+      operationId: delete
+      parameters:
+        - name: id_account
+          in: path
+          required: true
+          description: Bank account Id
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Bank account deleted
+        '404':
+          description: Not found bank account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/accounts/{id_account}/withdrawal:
+    post:
+      summary: Make a withdrawal from a bank account
+      operationId: withdrawal
+      parameters:
+        - name: id_account
+          in: path
+          required: true
+          description: Bank Account Id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+      responses:
+        '200':
+          description: Withdrawal completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '404':
+          description: Not found bank account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/accounts/{id_account}/deposit:
+    post:
+      summary: Make a deposit into a bank account
+      operationId: deposit
+      parameters:
+        - name: id_account
+          in: path
+          required: true
+          description: Bank account Id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+      responses:
+        '200':
+          description: Deposit completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '404':
+          description: Not found bank account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/accounts/{id_account}/{id_client}/balances:
+    get:
+      summary: Obtaining bank account balances by client
+      operationId: getBalanceByAccountAndClient
+      parameters:
+        - name: id_account
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id_client
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Bank account balance per client
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/accounts/{id_account}/{id_client}/transactions:
+    get:
+      summary: Get the transactions in a bank account by client
+      operationId: getTransactionsByAccountAndClient
+      parameters:
+        - name: id_account
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id_client
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Bank account transactions by client
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    BankAccountType:
+      type: string
+      enum:
+        - SAVING
+        - CURRENT
+        - FIXED_TERM
+    TransactionType:
+      type: string
+      enum:
+        - DEPOSIT
+        - WITHDRAWAL
+    Account:
+      type: object
+      properties:
+        _id:
+          type: string
+        type:
+          $ref: '#/components/schemas/BankAccountType'
+        nroAccount:
+          type: string
+        balance:
+          type: number
+        openingDate:
+          type: string
+          format: date
+        transactionLimit:
+          type: number
+        maintenanceCommission:
+          type: number
+        clientId:
+          type: string
+        holders:
+          type: array
+          items:
+            type: string
+        authorizedSigners:
+          type: array
+          items:
+            type: string
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    AccountRequest:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/BankAccountType'
+        nroAccount:
+          type: string
+        balance:
+          type: number
+        openingDate:
+          type: string
+          format: date
+        transactionLimit:
+          type: number
+        maintenanceCommission:
+          type: number
+        clientId:
+          type: string
+      required:
+        - type
+        - balance
+        - openingDate
+        - clientId
+    AccountResponse:
+      type: object
+      properties:
+        _id:
+          type: string
+        nroAccount:
+          type: string
+        type:
+          $ref: '#/components/schemas/BankAccountType'
+        balance:
+          type: number
+        openingDate:
+          type: string
+          format: date
+        transactionLimit:
+          type: number
+        maintenanceCommission:
+          type: number
+        clientId:
+          type: string
+        holders:
+          type: array
+          items:
+            type: string
+        authorizedSigners:
+          type: array
+          items:
+            type: string
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    Transaction:
+      type: object
+      properties:
+        clientId:
+          type: string
+        type:
+          $ref: '#/components/schemas/TransactionType'
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        motive:
+          type: string
+    TransactionRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+        type:
+          $ref: '#/components/schemas/TransactionType'
+      required:
+        - amount
+    TransactionResponse:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/BankAccountType'
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        motive:
+          type: string
+    BalanceResponse:
+      type: object
+      properties:
+        clientId:
+          type: string
+        type:
+          $ref: '#/components/schemas/BankAccountType'
+        nroAccount:
+          type: string
+        balanceAccount:
+          type: number
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
