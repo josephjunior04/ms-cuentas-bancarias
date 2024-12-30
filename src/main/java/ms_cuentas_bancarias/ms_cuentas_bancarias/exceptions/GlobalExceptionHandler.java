@@ -10,8 +10,12 @@ import com.ms_cuentas_bancarias.model.ErrorResponse;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * @return Response Entity of Error response with status
+     * @param ex Custom Excepction Bank Account not found
+     */
     @ExceptionHandler(BankAccountNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleAccountNotFoundException(BankAccountNotFoundException ex) {
+    public ResponseEntity<ErrorResponse> handleAccountNotFoundException(final BankAccountNotFoundException ex) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setError("Cuenta not found");
         errorResponse.setMessage(ex.getMessage());

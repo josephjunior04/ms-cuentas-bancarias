@@ -145,10 +145,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /v1/accounts/{id_account}/withdrawal:
+  /v1/accounts/{id_account}/withdraw:
     post:
-      summary: Make a withdrawal from a bank account
-      operationId: withdrawal
+      summary: Make a withdraw from a bank account
+      operationId: withdraw
       parameters:
         - name: id_account
           in: path
@@ -164,7 +164,7 @@ paths:
               $ref: '#/components/schemas/TransactionRequest'
       responses:
         '200':
-          description: Withdrawal completed
+          description: Withdraw completed
           content:
             application/json:
               schema:
@@ -211,24 +211,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /v1/accounts/{id_account}/{id_client}/balances:
+  /v1/accounts/{id_account}/balance:
     get:
-      summary: Obtaining bank account balances by client
-      operationId: getBalanceByAccountAndClient
+      summary: Obtaining bank account balances
+      operationId: getBalanceByAccount
       parameters:
         - name: id_account
           in: path
           required: true
           schema:
             type: string
-        - name: id_client
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
-          description: Bank account balance per client
+          description: Bank account balance
           content:
             application/json:
               schema:
@@ -245,28 +240,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /v1/accounts/{id_account}/{id_client}/transactions:
+  /v1/accounts/{id_account}/transactions:
     get:
-      summary: Get the transactions in a bank account by client
-      operationId: getTransactionsByAccountAndClient
+      summary: Get the transactions in a bank account
+      operationId: getTransactionsByAccount
       parameters:
         - name: id_account
           in: path
           required: true
           schema:
             type: string
-        - name: id_client
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
-          description: Bank account transactions by client
+          description: Bank account transactions
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionResponse'
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionResponse'
         '404':
           description: Not Found
           content:
@@ -383,7 +375,7 @@ components:
     Transaction:
       type: object
       properties:
-        clientId:
+        productId:
           type: string
         type:
           $ref: '#/components/schemas/TransactionType'
@@ -401,13 +393,15 @@ components:
           type: number
         type:
           $ref: '#/components/schemas/TransactionType'
+        motive:
+          type: string
       required:
         - amount
     TransactionResponse:
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/BankAccountType'
+          $ref: '#/components/schemas/TransactionType'
         amount:
           type: number
         date:
@@ -418,7 +412,7 @@ components:
     BalanceResponse:
       type: object
       properties:
-        clientId:
+        productId:
           type: string
         type:
           $ref: '#/components/schemas/BankAccountType'

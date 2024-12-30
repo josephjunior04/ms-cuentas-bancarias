@@ -21,30 +21,50 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
-public class BankAccountController implements V1Api{
+public class BankAccountController implements V1Api {
 
     private final BankAccountService bankAccountService;
 
+    /**
+     * @return Mono Response Entity with status
+     * @param idAccount Request for insert client
+     */
     @Override
-    public Mono<ResponseEntity<Void>> delete(String idCuenta, ServerWebExchange exchange) {
-        return bankAccountService.deleteById(idCuenta)
+    public Mono<ResponseEntity<Void>> delete(final String idAccount, final ServerWebExchange exchange) {
+        return bankAccountService.deleteById(idAccount)
                 .then(Mono.just(ResponseEntity.noContent().build()));
     }
 
+    /**
+     * @return Mono Response Entity with status and Transaction Response
+     * @param idAccount ID account to deposit
+     */
     @Override
-    public Mono<ResponseEntity<TransactionResponse>> deposit(String idAccount,
-            @Valid Mono<TransactionRequest> transactionRequest, ServerWebExchange exchange) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deposito'");
+    public Mono<ResponseEntity<TransactionResponse>> deposit(final String idAccount,
+            final @Valid Mono<TransactionRequest> transactionRequest, final ServerWebExchange exchange) {
+        return transactionRequest
+                .flatMap(request -> bankAccountService.deposit(idAccount, request)
+                        .map(bankAccountResponse -> {
+                            return ResponseEntity
+                                    .status(HttpStatus.CREATED)
+                                    .body(bankAccountResponse);
+                        }));
     }
 
+    /**
+     * @return Response Entity of Flux Account with status
+     */
     @Override
-    public Mono<ResponseEntity<Flux<AccountResponse>>> findAllAccounts(ServerWebExchange exchange) {
+    public Mono<ResponseEntity<Flux<AccountResponse>>> findAllAccounts(final ServerWebExchange exchange) {
         return Mono.just(ResponseEntity.ok(bankAccountService.findAll()));
     }
 
+    /**
+     * @return Mono Response Entity of Account response with status
+     * @param idAccount ID account to search
+     */
     @Override
-    public Mono<ResponseEntity<AccountResponse>> findById(String idAccount, ServerWebExchange exchange) {
+    public Mono<ResponseEntity<AccountResponse>> findById(final String idAccount, final ServerWebExchange exchange) {
         return bankAccountService.findById(idAccount)
                 .map(accountResponse -> {
                     return ResponseEntity
@@ -53,9 +73,13 @@ public class BankAccountController implements V1Api{
                 });
     }
 
+    /**
+     * @return Mono Response Entity of Account response to saved with status
+     * @param accountRequest Account request to saved
+     */
     @Override
-    public Mono<ResponseEntity<AccountResponse>> insert(@Valid Mono<AccountRequest> accountRequest,
-            ServerWebExchange exchange) {
+    public Mono<ResponseEntity<AccountResponse>> insert(final @Valid Mono<AccountRequest> accountRequest,
+            final ServerWebExchange exchange) {
         return accountRequest
                 .flatMap(request -> bankAccountService.insert(request)
                         .map(accountResponse -> {
@@ -65,37 +89,66 @@ public class BankAccountController implements V1Api{
                         }));
     }
 
+    /**
+     * @return Mono Response Entity of Transaction response to withdraw with status
+     * @param idAccount          Id Account to withdraw
+     * @param transactionRequest Transaction request to withdraw
+     */
     @Override
-    public Mono<ResponseEntity<TransactionResponse>> getTransactionsByAccountAndClient(String idAccount,
-            String idClient, ServerWebExchange exchange) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTransactionsByAccountAndClient'");
+    public Mono<ResponseEntity<TransactionResponse>> withdraw(final String idAccount,
+            final @Valid Mono<TransactionRequest> transactionRequest, final ServerWebExchange exchange) {
+        return transactionRequest
+                .flatMap(request -> bankAccountService.withdraw(idAccount, request)
+                        .map(creditResponse -> {
+                            return ResponseEntity
+                                    .status(HttpStatus.CREATED)
+                                    .body(creditResponse);
+                        }));
     }
 
+    /**
+     * @return Mono Response Entity of Account response to update with status
+     * @param idAccount      Current Id Account to update
+     * @param accountRequest Current account request to update
+     */
     @Override
-    public Mono<ResponseEntity<BalanceResponse>> getBalanceByAccountAndClient(String idAccount, String idClient,
-            ServerWebExchange exchange) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBalanceByAccountAndClient'");
-    }
-
-    @Override
-    public Mono<ResponseEntity<TransactionResponse>> withdrawal(String idAccount,
-            @Valid Mono<TransactionRequest> transactionRequest, ServerWebExchange exchange) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'withdrawal'");
-    }
-
-    @Override
-    public Mono<ResponseEntity<AccountResponse>> update(String idAccount, @Valid Mono<AccountRequest> accountRequest,
-            ServerWebExchange exchange) {
-                return accountRequest
+    public Mono<ResponseEntity<AccountResponse>> update(final String idAccount,
+            final @Valid Mono<AccountRequest> accountRequest,
+            final ServerWebExchange exchange) {
+        return accountRequest
                 .flatMap(request -> bankAccountService.update(idAccount, request)
                         .map(accountResponse -> {
                             return ResponseEntity
                                     .status(HttpStatus.CREATED)
                                     .body(accountResponse);
                         }));
+    }
+
+    /**
+     * @return Mono Response Entity of Account response to update with status
+     * @param idAccount      Current Id Account to update
+     * @param accountRequest Current account request to update
+     */
+    @Override
+    public Mono<ResponseEntity<BalanceResponse>> getBalanceByAccount(
+            final String idAccount, final ServerWebExchange exchange) {
+        return bankAccountService.getBalanceByAccount(idAccount)
+                .map(balanceResponse -> {
+                    return ResponseEntity
+                            .status(HttpStatus.OK)
+                            .body(balanceResponse);
+                });
+    }
+
+    /**
+     * @return Mono Response Entity of Account response to update with status
+     * @param idAccount      Current Id Account to update
+     * @param accountRequest Current account request to update
+     */
+    @Override
+    public Mono<ResponseEntity<Flux<TransactionResponse>>> getTransactionsByAccount(final String idAccount,
+            final ServerWebExchange exchange) {
+        return Mono.just(ResponseEntity.ok(bankAccountService.getTransactionsByAccount(idAccount)));
     }
 
 }
