@@ -271,6 +271,95 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /v1/accounts/transfer:
+    post:
+      summary: Bank transfer
+      operationId: bankTransfer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRequest'
+      responses:
+        '200':
+          description: Deposit completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '404':
+          description: Not found bank account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v1/accounts/{client_id}/dailyAverageBalances:
+    get:
+      summary: Get daily average balances by client id
+      operationId: getDailyAverageBalances
+      parameters:
+        - name: client_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+          '200':
+            description: Balances daily average by client
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/BalanceResponse'
+  /v1/accounts/{client_id}/summary:
+    post:
+      summary: Get summary by client id
+      operationId: getSummaryByClient
+      parameters:
+          - name: client_id
+            in: path
+            required: true
+            schema:
+              type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterRequest'
+      responses:
+          '200':
+            description: Summary accounts by client
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/SummaryAccountResponse'
+  /v1/accounts/{client_id}/balance:
+    get:
+      summary: Get balances by client id
+      operationId: getBalancesByClient
+      parameters:
+          - name: client_id
+            in: path
+            required: true
+            schema:
+              type: string
+      responses:
+          '200':
+            description: Balances accounts by client
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/BalanceResponse'
+
+
 
 components:
   schemas:
@@ -285,6 +374,8 @@ components:
       enum:
         - DEPOSIT
         - WITHDRAWAL
+        - COMISSION
+        - TRANSFER
     Account:
       type: object
       properties:
@@ -294,15 +385,13 @@ components:
           $ref: '#/components/schemas/BankAccountType'
         nroAccount:
           type: string
+        cardNumber:
+          type: string
         balance:
           type: number
         openingDate:
           type: string
           format: date
-        transactionLimit:
-          type: number
-        maintenanceCommission:
-          type: number
         clientId:
           type: string
         holders:
@@ -313,10 +402,6 @@ components:
           type: array
           items:
             type: string
-        transactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transaction'
     AccountRequest:
       type: object
       properties:
@@ -324,21 +409,26 @@ components:
           $ref: '#/components/schemas/BankAccountType'
         nroAccount:
           type: string
+        cardNumber:
+          type: string
         balance:
           type: number
         openingDate:
           type: string
           format: date
-        transactionLimit:
-          type: number
-        maintenanceCommission:
-          type: number
         clientId:
           type: string
+        holders:
+          type: array
+          items:
+            type: string
+        authorizedSigners:
+          type: array
+          items:
+            type: string
       required:
         - type
         - balance
-        - openingDate
         - clientId
     AccountResponse:
       type: object
@@ -347,6 +437,8 @@ components:
           type: string
         nroAccount:
           type: string
+        cardNumber:
+          type: string
         type:
           $ref: '#/components/schemas/BankAccountType'
         balance:
@@ -354,10 +446,6 @@ components:
         openingDate:
           type: string
           format: date
-        transactionLimit:
-          type: number
-        maintenanceCommission:
-          type: number
         clientId:
           type: string
         holders:
@@ -368,10 +456,6 @@ components:
           type: array
           items:
             type: string
-        transactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transaction'
     Transaction:
       type: object
       properties:
@@ -380,6 +464,8 @@ components:
         type:
           $ref: '#/components/schemas/TransactionType'
         amount:
+          type: number
+        comission:
           type: number
         date:
           type: string
@@ -404,6 +490,8 @@ components:
           $ref: '#/components/schemas/TransactionType'
         amount:
           type: number
+        comission:
+          type: number
         date:
           type: string
           format: date
@@ -427,3 +515,37 @@ components:
           type: string
         message:
           type: string
+    TransferRequest:
+      type: object
+      properties:
+        sourceAccountId:
+          type: string
+        targetAccountId:
+          type: string
+        transactionRequest:
+          $ref: '#/components/schemas/TransactionRequest'
+    SummaryAccountResponse:
+      type: object
+      properties:
+        type:
+          $ref: 'BankAccountType'
+        balance:
+          type: number
+          example: 150.00
+        openingDate:
+          type: string
+          format: date
+        transactions:
+          items:
+            $ref: '#/components/schemas/TransactionResponse'
+    FilterRequest:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+
+        

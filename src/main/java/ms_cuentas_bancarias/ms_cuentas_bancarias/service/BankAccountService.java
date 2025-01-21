@@ -4,8 +4,11 @@ package ms_cuentas_bancarias.ms_cuentas_bancarias.service;
 import com.ms_cuentas_bancarias.model.AccountRequest;
 import com.ms_cuentas_bancarias.model.AccountResponse;
 import com.ms_cuentas_bancarias.model.BalanceResponse;
+import com.ms_cuentas_bancarias.model.FilterRequest;
+import com.ms_cuentas_bancarias.model.SummaryAccountResponse;
 import com.ms_cuentas_bancarias.model.TransactionRequest;
 import com.ms_cuentas_bancarias.model.TransactionResponse;
+import com.ms_cuentas_bancarias.model.TransferRequest;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -20,4 +23,8 @@ public interface BankAccountService {
     Mono<TransactionResponse> withdraw(String idAccount, TransactionRequest transactionRequest);
     Flux<TransactionResponse> getTransactionsByAccount(String idAccount);
     Mono<BalanceResponse> getBalanceByAccount(String idAccount);
+    Mono<TransactionResponse> transfer(TransferRequest transferRequest);
+    Flux<BalanceResponse> getDailyAverageBalances(String clientId);
+    Flux<BalanceResponse> getBalancesByClient(String clientId);
+    Flux<SummaryAccountResponse> getSummaryByClient(String clientId, FilterRequest filterRequest);
 }

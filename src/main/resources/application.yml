@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: ms-cuentas-bancarias
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/cuentas-bancarias
+
+server:
+  port: 8081
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
